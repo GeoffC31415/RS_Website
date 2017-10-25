@@ -1,0 +1,16 @@
+table {
+    border-collapse: collapse;
+    display: inline-block;
+    vertical-align:top;
+    width: 450px;
+}
+
+th {
+    height: 50px;
+}
+
+th, td {
+    border: 1px solid black;
+    text-align: left;
+    width: 150px;
+}
