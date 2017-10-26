@@ -17,6 +17,60 @@ function getTopReadings($sensorcount) {
 	
 	return 0;
 }
+
+function getGraphData($sensorID) {
+	// Ensure connection is set up
+	require "RS_db_connect.php";
+
+	// Grab the select query
+	$sql = 	"
+			SELECT LogTime, Reading 
+			FROM SensorReadings
+			WHERE SensorID = $sensorID
+			ORDER BY LogTime DESC 
+			LIMIT 288;
+			";
+	
+	$result = mysqli_query($conn, $sql);
+	mysqli_close($conn);
+	
+	// Write the json column names and types
+	$table = array();
+	$table['cols'] = array(
+							//Labels for the chart, these represent the column titles
+							array('id' => '', 'label' => 'DateTime', 'type' => 'datetime'),
+							array('id' => '', 'label' => 'Reading', 'type' => 'number')
+	);
+	
+	//Populate the rows of the json
+	$rows = array();
+	
+	foreach ($result as $row){
+		
+		$time = strtotime($row['LogTime']);
+		$jsonDate = "Date(";
+		$jsonDate .= date('Y', $time) . ", ";  			//Year
+		$jsonDate .= date('n', $time) . ", ";			//Month
+		$jsonDate .= date('j', $time) . ", ";			//Day
+		$jsonDate .= date('G', $time) . ", ";			//Hours
+		$jsonDate .= date('i', $time) . ", ";			//Minutes
+		$jsonDate .= date('s', $time) . ", ";			//Seconds
+		$jsonDate .= ")";
+		
+		$temp = array();
+		$temp[] = array('v' => $jsonDate);
+		$temp[] = array('v' => (float) $row['Reading']); 
+		
+		$rows[] = array('c' => $temp);
+	}
+	
+	$result->free();
+	
+	$table['rows'] = $rows;
+	
+	$jsonTable = json_encode($table, true);
+	return $jsonTable;
+}
 	
 function getSensorData($num_sensors) {
 
@@ -26,10 +80,13 @@ function getSensorData($num_sensors) {
 	for ($x=1; $x < $num_sensors+1; $x++) {
 
 		// Get all the connected sensors from the database and place in an array
-		$sql = 	"SELECT SensorReadings.LogTime AS DateTime, Sensors.SensorName AS Sensor, SensorReadings.Reading AS Reading
-								FROM SensorReadings INNER JOIN Sensors ON SensorReadings.SensorID = Sensors.ID
-								WHERE SensorID = $x
-								ORDER BY SensorReadings.LogTime DESC LIMIT 100;
+		$sql = 	"
+				SELECT 	SensorReadings.LogTime AS DateTime, 
+						Sensors.SensorName AS Sensor, 
+						SensorReadings.Reading AS Reading
+				FROM SensorReadings INNER JOIN Sensors ON SensorReadings.SensorID = Sensors.ID
+				WHERE SensorID = $x
+				ORDER BY SensorReadings.LogTime DESC LIMIT 100;
 				";
 							
 		$result = mysqli_query($conn, $sql);
