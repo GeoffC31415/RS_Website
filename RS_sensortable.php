@@ -4,6 +4,7 @@
 </head>
 
 <html>
+	<title> X-Hydro Hydroponic Condition Monitoring </title>
 	<body>
 		<?php include "RS_Website/php/RS_db_handler.php"; ?>
 
@@ -44,21 +45,63 @@
 				
 				var options1 = {
 					title: 'Humidity in the Tray',
-					hAxis: {title: 'Time'},
 					vAxis: {title: 'Percent Humidity'},
-					legend: 'none'
+					legend: 'none',
+					colors: ['black', '#ff3a25'],
+					chartArea: { backgroundColor : '#f6f6f6' },
+					series: {
+								// series 0 is the data points
+								0: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 }
+								},
+								// series 1 is the moving average
+								1: {
+									lineWidth: 3,
+									pointSize: 0
+
+								}
+							}
 				};
 				var options2 = {
 					title: 'Temperature in the Tray',
-					hAxis: {title: 'Time'},
 					vAxis: {title: 'Degrees Celsius'},
-					legend: 'none'
+					legend: 'none',
+					colors: ['black', '#ff3a25'],
+					chartArea: { backgroundColor : '#f6f6f6' },
+					series: {
+								// series 0 is the data points
+								0: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 }
+								},
+								// series 1 is the moving average
+								1: {
+									lineWidth: 3,
+									pointSize: 0
+
+								}
+							}
 				};
 				var options3 = {
 					title: 'Reservoir pH',
-					hAxis: {title: 'Time'},
 					vAxis: {title: 'pH'},
-					legend: 'none'
+					legend: 'none',
+					colors: ['black', '#ff3a25'],
+					chartArea: { backgroundColor : '#f6f6f6' },
+					series: {
+								// series 0 is the data points
+								0: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 }
+								},
+								// series 1 is the moving average
+								1: {
+									lineWidth: 3,
+									pointSize: 0
+
+								}
+							}
 				};
 
 				var chart1 = new google.visualization.ScatterChart(document.getElementById('humidity_chart'));

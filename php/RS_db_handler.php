@@ -23,12 +23,24 @@ function getGraphData($sensorID) {
 	require "RS_db_connect.php";
 
 	// Grab the select query
-	$sql = 	"
-			SELECT LogTime, Reading 
-			FROM SensorReadings
-			WHERE SensorID = $sensorID
-			ORDER BY LogTime DESC 
-			LIMIT 288;
+	//$sql = 	"
+	//		SELECT LogTime, Reading 
+	//		FROM SensorReadings
+	//		WHERE SensorID = $sensorID
+	//		ORDER BY LogTime DESC 
+	//		LIMIT 288;
+	//		";
+			
+	// Now with built in SQL moving average hardcoded
+	$sql =	"
+			select LogTime, SensorID, Reading,
+				case @i when SensorID then @i:=SensorID else (@i:=SensorID) and (@n:=0) and (@a0:=0) and (@a1:=0) and (@a2:=0) and (@a3:=0) and (@a4:=0) and (@a5:=0) and (@a6:=0) and (@a7:=0) and (@a8:=0) and (@a9:=0) and (@a10:=0) and (@a11:=0) end, 
+				case @n when 12 then @n:=12 else @n:=@n+1 end, @a0:=@a1,@a1:=@a2,@a2:=@a3,@a3:=@a4,@a4:=@a5,@a5:=@a6,@a6:=@a7,@a7:=@a8,@a8:=@a9,@a9:=@a10,@a10:=@a11,@a11:=Reading, 
+				(@a0+@a1+@a2+@a3+@a4+@a5+@a6+@a7+@a8+@a9+@a10+@a11)/@n as avg 
+			from SensorReadings, 
+				(select @i:=0, @n:=0, @a0:=0, @a1:=0, @a2:=0, @a3:=0, @a4:=0, @a5:=0, @a6:=0, @a7:=0, @a8:=0, @a9:=0, @a10:=0, @a11:=0) a 
+			where SensorID = $sensorID
+			order by SensorID, LogTime DESC LIMIT 288
 			";
 	
 	$result = mysqli_query($conn, $sql);
@@ -39,7 +51,8 @@ function getGraphData($sensorID) {
 	$table['cols'] = array(
 							//Labels for the chart, these represent the column titles
 							array('id' => '', 'label' => 'DateTime', 'type' => 'datetime'),
-							array('id' => '', 'label' => 'Reading', 'type' => 'number')
+							array('id' => '', 'label' => 'Reading', 'type' => 'number'),
+							array('id' => '', 'label' => 'Average', 'type' => 'number')
 	);
 	
 	//Populate the rows of the json
@@ -50,7 +63,7 @@ function getGraphData($sensorID) {
 		$time = strtotime($row['LogTime']);
 		$jsonDate = "Date(";
 		$jsonDate .= date('Y', $time) . ", ";  			//Year
-		$jsonDate .= date('n', $time) . ", ";			//Month
+		$jsonDate .= date('n', $time)-1 . ", ";			//Month
 		$jsonDate .= date('j', $time) . ", ";			//Day
 		$jsonDate .= date('G', $time) . ", ";			//Hours
 		$jsonDate .= date('i', $time) . ", ";			//Minutes
@@ -60,6 +73,7 @@ function getGraphData($sensorID) {
 		$temp = array();
 		$temp[] = array('v' => $jsonDate);
 		$temp[] = array('v' => (float) $row['Reading']); 
+		$temp[] = array('v' => (float) $row['avg']); 
 		
 		$rows[] = array('c' => $temp);
 	}
