@@ -35,7 +35,8 @@ function getGraphData($sensorID) {
 	$sql =	"
 			select LogTime, SensorID, Reading,
 				case @i when SensorID then @i:=SensorID else (@i:=SensorID) and (@n:=0) and (@a0:=0) and (@a1:=0) and (@a2:=0) and (@a3:=0) and (@a4:=0) and (@a5:=0) and (@a6:=0) and (@a7:=0) and (@a8:=0) and (@a9:=0) and (@a10:=0) and (@a11:=0) end, 
-				case @n when 12 then @n:=12 else @n:=@n+1 end, @a0:=@a1,@a1:=@a2,@a2:=@a3,@a3:=@a4,@a4:=@a5,@a5:=@a6,@a6:=@a7,@a7:=@a8,@a8:=@a9,@a9:=@a10,@a10:=@a11,@a11:=Reading, 
+				case @n when 12 then @n:=12 else @n:=@n+1 end, 
+				@a0:=@a1,@a1:=@a2,@a2:=@a3,@a3:=@a4,@a4:=@a5,@a5:=@a6,@a6:=@a7,@a7:=@a8,@a8:=@a9,@a9:=@a10,@a10:=@a11,@a11:=Reading, 
 				(@a0+@a1+@a2+@a3+@a4+@a5+@a6+@a7+@a8+@a9+@a10+@a11)/@n as avg 
 			from SensorReadings, 
 				(select @i:=0, @n:=0, @a0:=0, @a1:=0, @a2:=0, @a3:=0, @a4:=0, @a5:=0, @a6:=0, @a7:=0, @a8:=0, @a9:=0, @a10:=0, @a11:=0) a 
