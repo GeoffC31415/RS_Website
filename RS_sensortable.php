@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-	<link rel="stylesheet" type="text/css" href="RS_Website/mystyle.css">
+	<link rel="stylesheet" type="text/css" href="RS_Website/newstyle.css">
 </head>
 
 <html>
@@ -9,7 +9,18 @@
 		<?php include "RS_Website/php/RS_db_handler.php"; ?>
 
 		<h1> Current Picture </h1>
+		<?php
+			// outputs e.g.  somefile.txt was last modified: December 29 2002 22:16:23.
+
+			$filename = "RS_Website/images/image_recent.jpg";
+			if (file_exists($filename)) {
+				echo "Image was last recorded: " . date ("F d Y H:i:s.", filemtime($filename));
+			}
+		?>
+		<br>
 		<img src="RS_Website/images/image_recent.jpg" alt="Current Snapshot">
+
+		<iframe src="RS_Website/add_note.html" height="450" width="500" style="border:none;"></iframe>
 
 		<h1 height=30px> Historical Graphs </h1>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

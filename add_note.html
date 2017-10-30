@@ -1,7 +1,8 @@
 <html>
 		<style> 
-			input[name=note] { 
-				width: 50%;
+			textarea { 
+				width: 100%;
+				height: 100px;
 				padding: 12px 20px;
 				margin: 8px 0;
 				box-sizing: border-box;
@@ -17,12 +18,13 @@
 			}
 		</style>
 		
+	<h2> Additive Logs and Notes </h2>
 	<form action="submitnote.php" method="post">
 		<label>
-			Note: <br> <input type="text" name="note" /> <br> <br>
-			Additive: <br> <input type="text" name="additive" /> <br> <br>
-			Amount: <br>  <input type="number" name="amount" />
-			Unit <input type="text" name="unit" /> <br> <br>
+			Note: <br> <textarea name="note"> </textarea> <br> <br>
+			Additive (optional): <br> <input type="text" name="additive" placeholder="e.g. 81% H3PO4"/> <br> <br>
+			Amount (optional): <br>  <input type="number" name="amount" placeholder="e.g. 1.5"/>
+			Unit <input type="text" name="unit" placeholder="e.g. ml"/> <br> <br>
 		</label>
 		<input type="submit" />
 	</form>
