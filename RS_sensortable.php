@@ -8,10 +8,8 @@
 	<body>
 		<?php include "RS_Website/php/RS_db_handler.php"; ?>
 
-		<h1> Current Readings </h1>
-		<?php 
-			getTopReadings(3);
-		?>
+		<h1> Current Picture </h1>
+		<img src="RS_Website/images/image_recent.jpg" alt="Current Snapshot">
 
 		<h1 height=30px> Historical Graphs </h1>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

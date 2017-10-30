@@ -13,3 +13,7 @@ th, td {
     border: 1px solid black;
     width: 150px;
 }
+
+img { 
+	width:50%; 
+}
