@@ -1,3 +1,7 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="newstyle.css">
+</head>
+
 <html>
 		<style> 
 			textarea { 
@@ -21,12 +25,14 @@
 	<h2> Additive Logs and Notes </h2>
 	All notes also attach submission date and time. <br><br>
 	<form action="submitnote.php" method="post">
-		<label>
-			Note: <br> <textarea name="note"> </textarea> <br> <br>
-			Additive (optional): <br> <input type="text" name="additive" placeholder="e.g. 81% H3PO4"/> <br> <br>
-			Amount (optional): <br>  <input type="number" name="amount" placeholder="e.g. 1.5"/>
-			Unit <input type="text" name="unit" placeholder="e.g. ml"/ width=50> <br> <br>
-		</label>
+		<div class="logarea">
+			<label>
+				Note: <br> <textarea name="note"> </textarea> <br> <br>
+				Additive (optional): <br> <input type="text" name="additive" placeholder="e.g. 81% H3PO4"/> <br> <br>
+				Amount (optional): <br>  <input type="number" name="amount" placeholder="e.g. 1.5"/>
+				Unit <input type="text" name="unit" placeholder="e.g. ml"/ width=50> <br> <br>
+			</label>
+		</div>
 		<input type="submit" />
 	</form>
 </html>

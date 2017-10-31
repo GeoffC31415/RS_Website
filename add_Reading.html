@@ -1,5 +1,6 @@
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="newstyle.css">
 </head>
 
 <html>
@@ -16,14 +17,17 @@
 		</style>
 		
 	<h2> EC Logs </h2>
+	Used only for manual EC records. <br><br>
+		<form action="submitreading.php" method="post">
+			<div class="logarea">
+				<label>
+					EC: <br> <br> <input type="number" name="ec" placeholder="e.g. 2034"/>  uS/cm <br> <br>
+					LogTime: <br> <br> <input type="datetime" name="logtime"/>
+				</label>
+			</div>
+			<input type="submit" />
+		</form>
 	
-	<form action="submitreading.php" method="post">
-		<label>
-			EC: <br> <input type="number" name="ec" placeholder="e.g. 2034"/>  uS/cm<br> <br>
-			LogTime: <br>  <input type="datetime" name="logtime"/> <br> <br>
-		</label>
-		<input type="submit" />
-	</form>
 	<script>
 		$.fn.setNow = function (onlyBlank) {
 			var now = new Date($.now())
