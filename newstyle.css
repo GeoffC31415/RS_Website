@@ -17,3 +17,30 @@ th, td {
 img { 
 	width:800px; 
 }
+
+#wrapper {
+	margin-left: 00px;
+}
+
+#rightbar {
+	float: left;
+	width: 300px;
+	border:none;
+}
+
+#leftbar {
+	float: left;
+	width: 500px;
+	overflow:hidden;
+	border:none;
+}
+
+#cleared {
+	clear: both;
+}
+
+iframe {
+	width: 400px;
+	height: 450px;
+	border:none;
+}

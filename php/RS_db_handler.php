@@ -21,15 +21,6 @@ function getTopReadings($sensorcount) {
 function getGraphData($sensorID) {
 	// Ensure connection is set up
 	require "RS_db_connect.php";
-
-	// Grab the select query
-	//$sql = 	"
-	//		SELECT LogTime, Reading 
-	//		FROM SensorReadings
-	//		WHERE SensorID = $sensorID
-	//		ORDER BY LogTime DESC 
-	//		LIMIT 288;
-	//		";
 			
 	// Now with built in SQL moving average hardcoded
 	$sql =	"
@@ -41,7 +32,7 @@ function getGraphData($sensorID) {
 			from SensorReadings, 
 				(select @i:=0, @n:=0, @a0:=0, @a1:=0, @a2:=0, @a3:=0, @a4:=0, @a5:=0, @a6:=0, @a7:=0, @a8:=0, @a9:=0, @a10:=0, @a11:=0) a 
 			where SensorID = $sensorID
-			order by SensorID, LogTime DESC LIMIT 288
+			order by SensorID, LogTime DESC LIMIT 376
 			";
 	
 	$result = mysqli_query($conn, $sql);

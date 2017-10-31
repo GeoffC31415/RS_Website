@@ -19,8 +19,18 @@
 		?>
 		<br>
 		<img src="RS_Website/images/image_recent.jpg" alt="Current Snapshot">
-
-		<iframe src="RS_Website/add_note.html" height="450" width="500" style="border:none;"></iframe>
+		
+		<!-- iFrames for the forms -->
+		<div id="wrapper">
+			<div id="leftbar">
+				<iframe src="RS_Website/add_note.html"></iframe>
+			</div>
+			<div id="rightbar">
+				<iframe src="RS_Website/add_Reading.html"></iframe>
+			</div>
+			<div id="cleared"></div>
+		</div>
+		
 
 		<h1 height=30px> Historical Graphs </h1>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -46,11 +56,17 @@
 					dataType: "json",
 					async: false
 					}).responseText;
+				var jsonData4 = $.ajax({
+					url: "RS_Website/php/getJSON_Sensor4.php",
+					dataType: "json",
+					async: false
+					}).responseText;
 					
 				// Create our data table out of JSON data loaded from server.
 				var data1 = new google.visualization.DataTable(jsonData1);
 				var data2 = new google.visualization.DataTable(jsonData2);
 				var data3 = new google.visualization.DataTable(jsonData3);
+				var data4 = new google.visualization.DataTable(jsonData4);
 				
 				var options1 = {
 					title: 'Humidity in the Tray',
@@ -112,18 +128,41 @@
 								}
 							}
 				};
+				var options4 = {
+					title: 'Reservoir EC',
+					vAxis: {title: 'uS per cm'},
+					legend: 'none',
+					colors: ['black', '#ff3a25'],
+					chartArea: { backgroundColor : '#f6f6f6' },
+					series: {
+								// series 0 is the data points
+								0: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 }
+								},
+								// series 1 is the moving average
+								1: {
+									lineWidth: 3,
+									pointSize: 0
+
+								}
+							}
+				};
+
 
 				var chart1 = new google.visualization.ScatterChart(document.getElementById('humidity_chart'));
 				var chart2 = new google.visualization.ScatterChart(document.getElementById('temp_chart'));
 				var chart3 = new google.visualization.ScatterChart(document.getElementById('ph_chart'));
+				var chart4 = new google.visualization.ScatterChart(document.getElementById('ec_chart'));
 
 				chart1.draw(data1, options1);
 				chart2.draw(data2, options2);
 				chart3.draw(data3, options3);
-			}
+				chart4.draw(data4, options4);			}
 		</script>
-		<div id="humidity_chart" style="height: 440px"></div>
-		<div id="temp_chart" style="height: 440px"></div>
-		<div id="ph_chart" style="height: 440px"></div>
+		<div id="humidity_chart" style="height: 440px; width: 955px"></div>
+		<div id="temp_chart" style="height: 440px; width: 955px"></div>
+		<div id="ph_chart" style="height: 440px; width: 955px"></div>
+		<div id="ec_chart" style="height: 440px; width: 955px"></div>
 	</body>
 </html>

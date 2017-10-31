@@ -1,6 +1,6 @@
 <?php
 /*
- * submitnote.php
+ * submitreading.php
  * 
  * Copyright 2017  <pi@raspberrypi>
  * 
@@ -40,34 +40,25 @@
 			require "php/RS_db_connect.php";
 
 			// Escape the input fields
-			$note = mysqli_real_escape_string($conn, $_POST['note']);
-			$additive = mysqli_real_escape_string($conn, $_POST['additive']);
-			$amount = mysqli_real_escape_string($conn, $_POST['amount']);
-			$unit = mysqli_real_escape_string($conn, $_POST['unit']);
+			$ec = mysqli_real_escape_string($conn, $_POST['ec']);
+			$datetime = mysqli_real_escape_string($conn, $_POST['logtime']);
 
 			// prepare the query
-			$sql = 	sprintf("INSERT INTO Notes 	(
-												ID, 
-												LogTime, 
-												Note, 
-												Additive, 
-												Amount, 
-												Unit
-												) 
-					
-										VALUES 	(
-												NULL, 
-												CURRENT_TIME(), 
-												'%s', 
-												'%s', 
-												%d, 
-												'%s')
+			$sql = 	sprintf("INSERT INTO `SensorReadings` 
+										(`ID`, 
+										`LogTime`, 
+										`SensorID`, 
+										`Reading`) 
+									VALUES 	
+										(NULL, 
+										'%s', 
+										'4', 
+										'%d')
 							",
-							$note,
-							$additive,
-							$amount,
-							$unit);
-			
+							$datetime,	
+							$ec
+							);
+
 			// insert into database
 			$query = $conn->query($sql) or die($conn->error);
 			// view ID of last inserted row in the database
