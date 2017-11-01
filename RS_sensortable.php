@@ -8,8 +8,32 @@
 	<body>
 		<?php include "RS_Website/php/RS_db_handler.php"; ?>
 
+		<!-- Header section -->
+		<h1> ExHydro: Mobile Plant Autofactory </h1>
+		<div class="introtext">
+			<h3> Proposition </h3>
+			Requiring just 10kW of power per unit and a water source, our mobile autofactories monitor and maintain plant growth from germination through to harvest.
+			<br><br>
+			Our business provides the hardware and software, and also supplies seeds, nutrients, and assorted additives to control the conditions remotely.
+			<br>
+			<h3> Operations </h3>
+			Our mobile autofactories are contained within a standard shipping container and are deployable anywhere in the world and can grow a wide range of crops using pre-defined 'recipes'.
+			High value crops can be grown whatever the weather and at any time of year, maintaining optimal growing conditions resulting in huge yields.
+			<br><br>
+			Being containerised, operations are trivial to scale to produce any required output. Each container can reliably produce 300kg of rocket every ten days.
+			<br><br>
+			Being a hermetically sealed unit, no herbicides or insecticides are required, nor are traditional fertilisers.
+			<br><br>
+			We believe this offers an excellent opportunity for fresh salad crops at <b>restaurants and hotels in the Middle East</b> or other <b>desert or island environments</b>, improving freshness and reducing cost.
+			<br><br>
+			Other applications are for tight control and automation on high value pharmaceutical crops, and micro-herbs.
+			<br>
+			<h3> Find out more </h3>
+			To find out more, please contact our Propositions Director on <b>+44 7849 834648</b>.
+		</div>
+		
 		<!-- Display latest image -->
-		<h1> Current Picture </h1>
+		<h2> Current Picture </h2>
 		<img src="RS_Website/images/image_recent.jpg" alt="Current Snapshot">
 		<?php
 			$filename = "RS_Website/images/image_recent.jpg";
@@ -21,7 +45,7 @@
 		?>
 		
 		<!-- Tables of past notes -->
-		<h1> Logs </h1>
+		<h2> Logs </h2>
 		<div class="wrapper">
 			<?php getNoteTopFive(); ?>
 		</div>
@@ -39,7 +63,7 @@
 		</div>
 
 		<!-- Google Charts Graphs -->
-		<h1 height=30px> Graphs of Readings </h1>
+		<h2> Graphs of Readings </h2>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript">

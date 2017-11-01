@@ -16,12 +16,12 @@
 			}
 		</style>
 		
-	<h2> EC Logs </h2>
+	<h3> EC Logs </h3>
 	Used only for manual EC records. <br><br>
 		<form action="submitreading.php" method="post">
 			<div class="logarea">
 				<label>
-					EC: <br> <br> <input type="number" name="ec" placeholder="e.g. 2034"/>  uS/cm <br> <br>
+					EC: <br> <br> <input type="number" name="ec" placeholder="e.g. 2034" step="0.001" min="0"/>  uS/cm <br> <br>
 					LogTime: <br> <br> <input type="datetime" name="logtime"/>
 				</label>
 			</div>

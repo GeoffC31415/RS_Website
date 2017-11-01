@@ -33,7 +33,20 @@ img {
 h1 {
 	background-color: #4CAF50;
     color: white;
+    text-align: center;
     padding: 8px;
+}
+
+h2 {
+	background-color: #4CAF50;
+    color: white;
+    padding: 8px;
+}
+
+iframe {
+	width: 400px;
+	height: 450px;
+	border:none;
 }
 
 .wrapper {
@@ -58,16 +71,14 @@ h1 {
 	clear: both;
 }
 
-iframe {
-	width: 400px;
-	height: 450px;
-	border:none;
-}
-
 .logarea {
 	height: 280px;
 }
 
 .centretext {
 	text-align: center;
+}
+
+.introtext{
+	
 }
