@@ -8,31 +8,38 @@
 	<body>
 		<?php include "RS_Website/php/RS_db_handler.php"; ?>
 
+		<!-- Display latest image -->
 		<h1> Current Picture </h1>
+		<img src="RS_Website/images/image_recent.jpg" alt="Current Snapshot">
 		<?php
-			// outputs e.g.  somefile.txt was last modified: December 29 2002 22:16:23.
-
 			$filename = "RS_Website/images/image_recent.jpg";
 			if (file_exists($filename)) {
+				echo "<div class=\"centretext\">";
 				echo "Image was last recorded: " . date ("F d Y H:i:s.", filemtime($filename));
+				echo "</div>";
 			}
 		?>
+		
+		<!-- Tables of past notes -->
+		<h1> Logs </h1>
+		<div class="wrapper">
+			<?php getNoteTopFive(); ?>
+		</div>
 		<br>
-		<img src="RS_Website/images/image_recent.jpg" alt="Current Snapshot">
 		
 		<!-- iFrames for the forms -->
-		<div id="wrapper">
-			<div id="leftbar">
+		<div class="wrapper">
+			<div class="leftbar">
 				<iframe src="RS_Website/add_note.html"></iframe>
 			</div>
-			<div id="rightbar">
+			<div class="rightbar">
 				<iframe src="RS_Website/add_Reading.html"></iframe>
 			</div>
-			<div id="cleared"></div>
+			<div class="cleared"></div>
 		</div>
-		
 
-		<h1 height=30px> Historical Graphs </h1>
+		<!-- Google Charts Graphs -->
+		<h1 height=30px> Graphs of Readings </h1>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript">
@@ -84,7 +91,6 @@
 								1: {
 									lineWidth: 3,
 									pointSize: 0
-
 								}
 							}
 				};
@@ -104,7 +110,6 @@
 								1: {
 									lineWidth: 3,
 									pointSize: 0
-
 								}
 							}
 				};
@@ -124,7 +129,6 @@
 								1: {
 									lineWidth: 3,
 									pointSize: 0
-
 								}
 							}
 				};
@@ -144,7 +148,6 @@
 								1: {
 									lineWidth: 3,
 									pointSize: 0
-
 								}
 							}
 				};
@@ -158,11 +161,12 @@
 				chart1.draw(data1, options1);
 				chart2.draw(data2, options2);
 				chart3.draw(data3, options3);
-				chart4.draw(data4, options4);			}
+				chart4.draw(data4, options4);			
+			}
 		</script>
-		<div id="humidity_chart" style="height: 440px; width: 955px"></div>
-		<div id="temp_chart" style="height: 440px; width: 955px"></div>
-		<div id="ph_chart" style="height: 440px; width: 955px"></div>
-		<div id="ec_chart" style="height: 440px; width: 955px"></div>
+		<div id="humidity_chart" 	style="height: 440px; width: 955px"></div>
+		<div id="temp_chart" 		style="height: 440px; width: 955px"></div>
+		<div id="ph_chart" 			style="height: 440px; width: 955px"></div>
+		<div id="ec_chart" 			style="height: 440px; width: 955px"></div>
 	</body>
 </html>

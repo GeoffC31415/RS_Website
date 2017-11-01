@@ -96,11 +96,37 @@ function getSensorData($num_sensors) {
 				";
 							
 		$result = mysqli_query($conn, $sql);
-		echo_result_as_table($result);
+		echo_result_as_table($result, 'readings');
 		echo "\n\n";
 		if ($result) mysqli_free_result($result);
 		
 	}
+	
+	mysqli_close($conn);
+	
+	return 0;
+}
+
+function getNoteTopFive() {
+
+	// Ensure connection is set up
+	require "RS_db_connect.php";
+
+	// Get all the connected sensors from the database and place in an array
+	$sql = 	"
+			SELECT 	Notes.LogTime AS DateTime, 
+					Notes.Note AS Note, 
+					Notes.Additive AS Additive,
+					Notes.Amount AS Amount,
+					Notes.Unit AS Unit
+			FROM Notes
+			ORDER BY Notes.LogTime DESC LIMIT 5;
+			";
+						
+	$result = mysqli_query($conn, $sql);
+	echo_result_as_table($result, 'notes');
+	echo "\n\n";
+	if ($result) mysqli_free_result($result);
 	
 	mysqli_close($conn);
 	
@@ -121,10 +147,10 @@ function table_row($items, $header=false) {
     return "<tr>\n\t".implode("\n\t", array_map($func, $items))."\n</tr>\n";
 }
 
-function echo_result_as_table($result) {
+function echo_result_as_table($result, $classname) {
     if ($result && $row = mysqli_fetch_assoc($result)) {
         $columnnames = array_keys($row);
-        echo "<table>\n", table_row($columnnames, true), "\n";
+        echo "<table class=\"" . $classname . "\">\n", table_row($columnnames, true), "\n";
         do {
             echo table_row($row), "\n";
         } while ($row = mysqli_fetch_assoc($result));

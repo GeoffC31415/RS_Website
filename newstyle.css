@@ -1,41 +1,60 @@
 table {
     border-collapse: collapse;
-    display: inline-block;
     vertical-align:top;
-    width: 450px;
+    width: 100%;
+    font-family: "Calibri", sans-serif;
+    margin: auto;
+}
+
+body {
+	font-family: "Calibri", sans-serif;
+	max-width: 955px;
+	margin: auto;
 }
 
 th {
-    height: 50px;
+    height: 40px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }
 
 th, td {
     border: 1px solid black;
-    width: 150px;
+    padding: 6px;
 }
 
 img { 
 	width:800px; 
+	margin: auto;
+	margin-left: 80px;
 }
 
-#wrapper {
-	margin-left: 00px;
+h1 {
+	background-color: #4CAF50;
+    color: white;
+    padding: 8px;
 }
 
-#rightbar {
+.wrapper {
+	margin-left: 80px;
+	width: 800px;
+}
+
+.rightbar {
 	float: left;
 	width: 300px;
 	border:none;
 }
 
-#leftbar {
+.leftbar {
 	float: left;
 	width: 500px;
 	overflow:hidden;
 	border:none;
 }
 
-#cleared {
+.cleared {
 	clear: both;
 }
 
@@ -47,4 +66,8 @@ iframe {
 
 .logarea {
 	height: 280px;
+}
+
+.centretext {
+	text-align: center;
 }
