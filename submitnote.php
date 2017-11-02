@@ -45,6 +45,10 @@
 			$amount = mysqli_real_escape_string($conn, $_POST['amount']);
 			$unit = mysqli_real_escape_string($conn, $_POST['unit']);
 
+			// Data cleanse - replace <blank> with none.
+			$additive == '' ? $additive = 'None' : $additive = $additive;
+			$unit == '' ? $unit = 'None' : $unit = $unit;
+
 			// prepare the query
 			$sql = 	sprintf("INSERT INTO Notes 	(
 												ID, 

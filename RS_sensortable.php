@@ -4,7 +4,7 @@
 </head>
 
 <html>
-	<title> X-Hydro Hydroponic Condition Monitoring </title>
+	<title> ExHydro Hydroponic Condition Monitoring </title>
 	<body>
 		<?php include "RS_Website/php/RS_db_handler.php"; ?>
 
@@ -116,6 +116,10 @@
 									lineWidth: 3,
 									pointSize: 0
 								}
+							},
+					vAxis: 	{
+								minValue: 0,
+								maxValue: 100
 							}
 				};
 				var options2 = {
@@ -135,6 +139,10 @@
 									lineWidth: 3,
 									pointSize: 0
 								}
+							},
+					vAxis: 	{
+								minValue: 0,
+								maxValue: 40
 							}
 				};
 				var options3 = {
