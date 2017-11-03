@@ -33,10 +33,10 @@
 		</div>
 		
 		<!-- Display latest image -->
-		<h2> Current Picture </h2>
-		<img src="RS_Website/images/image_recent.jpg" alt="Current Snapshot">
+		<h2> Current Picture - Our Experimental Bench </h2>
+		<img src="RS_Website/images/image_now.jpg" alt="Current Snapshot">
 		<?php
-			$filename = "RS_Website/images/image_recent.jpg";
+			$filename = "RS_Website/images/image_now.jpg";
 			if (file_exists($filename)) {
 				echo "<div class=\"centretext\">";
 				echo "Image was last recorded: " . date ("F d Y H:i:s.", filemtime($filename));
