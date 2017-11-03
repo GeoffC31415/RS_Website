@@ -34,9 +34,9 @@
 		
 		<!-- Display latest image -->
 		<h2> Current Picture - Our Experimental Bench </h2>
-		<img src="RS_Website/images/image_now.jpg" alt="Current Snapshot">
+		<img src="RS_Website/images/image_recent.jpg" alt="Current Snapshot">
 		<?php
-			$filename = "RS_Website/images/image_now.jpg";
+			$filename = "RS_Website/images/image_recent.jpg";
 			if (file_exists($filename)) {
 				echo "<div class=\"centretext\">";
 				echo "Image was last recorded: " . date ("F d Y H:i:s.", filemtime($filename));
