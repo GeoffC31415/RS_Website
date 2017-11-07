@@ -82,3 +82,13 @@ iframe {
 .introtext{
 	
 }
+
+.sensorgroup {
+	border-style: solid;
+	border-color: #4CAF50;
+}
+
+.sensorgrouptitle {
+	background-color: #4CAF50;
+	color: white;
+}	
