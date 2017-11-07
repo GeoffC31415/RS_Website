@@ -52,7 +52,7 @@
 									VALUES 	
 										(NULL, 
 										'%s', 
-										'4', 
+										'10', 
 										'%d')
 							",
 							$datetime,	

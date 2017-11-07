@@ -78,7 +78,112 @@ function getGraphData($sensorID) {
 	return $jsonTable;
 }
 	
-function getSensorData($num_sensors) {
+function getDHTData($type) {
+	// Ensure connection is set up
+	require "RS_db_connect.php";
+		
+	// Get temperature sensor data
+	$sql = "SELECT ID, SensorName FROM Sensors WHERE SensorType = '$type'";
+	$result = mysqli_query($conn, $sql);
+	$sensorIDs = array();
+	$sensorNames = array();
+	foreach ($result as $row) {
+		array_push($sensorIDs,$row['ID']);
+		array_push($sensorNames,$row['SensorName']);
+		
+	};
+	$result->free();
+	if (count($sensorIDs) > 4) exit('sensorcounterror');
+		
+	// Write the json column names and types
+	$table = array();
+	$sensorcount = 4;
+	$table['cols'] = array(
+							//Labels for the chart, these represent the column titles
+							array('id' => '', 'label' => 'DateTime', 'type' => 'datetime'),
+							array('id' => '', 'label' => "{$sensorNames[0]}", 'type' => 'number'),
+							array('id' => '', 'label' => "{$sensorNames[1]}", 'type' => 'number'),
+							array('id' => '', 'label' => "{$sensorNames[2]}", 'type' => 'number'),
+							array('id' => '', 'label' => "{$sensorNames[3]}", 'type' => 'number'),
+							array('id' => '', 'label' => "Avg {$sensorNames[0]}", 'type' => 'number'),
+							array('id' => '', 'label' => "Avg {$sensorNames[1]}", 'type' => 'number'),
+							array('id' => '', 'label' => "Avg {$sensorNames[2]}", 'type' => 'number'),
+							array('id' => '', 'label' => "Avg {$sensorNames[3]}", 'type' => 'number')
+	);	
+	
+	//Loop through temp array writing the rows of the JSON
+	$rows = array();
+	foreach ($sensorIDs as $tempsensor) {
+		$sql =	"
+				SELECT LogTime, SensorID, Reading,
+					case @i when SensorID then @i:=SensorID else (@i:=SensorID) and (@n:=0) and (@a0:=0) and (@a1:=0) and (@a2:=0) and (@a3:=0) and (@a4:=0) and (@a5:=0) and (@a6:=0) and (@a7:=0) and (@a8:=0) and (@a9:=0) and (@a10:=0) and (@a11:=0) end, 
+					case @n when 12 then @n:=12 else @n:=@n+1 end, 
+					@a0:=@a1,@a1:=@a2,@a2:=@a3,@a3:=@a4,@a4:=@a5,@a5:=@a6,@a6:=@a7,@a7:=@a8,@a8:=@a9,@a9:=@a10,@a10:=@a11,@a11:=Reading, 
+					(@a0+@a1+@a2+@a3+@a4+@a5+@a6+@a7+@a8+@a9+@a10+@a11)/@n as avg 
+				FROM SensorReadings, 
+					(select @i:=0, @n:=0, @a0:=0, @a1:=0, @a2:=0, @a3:=0, @a4:=0, @a5:=0, @a6:=0, @a7:=0, @a8:=0, @a9:=0, @a10:=0, @a11:=0) a 
+				WHERE SensorID = $tempsensor
+				ORDER BY SensorID, LogTime DESC LIMIT 288
+				";
+		
+		$result = mysqli_query($conn, $sql);
+		
+		// Get which column to write it in
+		$num = array_search($tempsensor,$sensorIDs);
+		
+		//Populate the rows of the json
+		foreach ($result as $row){
+			
+			$time = strtotime($row['LogTime']);
+			$jsonDate = "Date(";
+			$jsonDate .= date('Y', $time) . ", ";  			//Year
+			$jsonDate .= date('n', $time)-1 . ", ";			//Month
+			$jsonDate .= date('j', $time) . ", ";			//Day
+			$jsonDate .= date('G', $time) . ", ";			//Hours
+			$jsonDate .= date('i', $time) . ", ";			//Minutes
+			$jsonDate .= date('s', $time) . ", ";			//Seconds
+			$jsonDate .= ")";
+			
+			// Record datetime of entry
+			$temp = array();
+			$temp[] = array('v' => $jsonDate);
+			
+			// Loop for first null block (start of temps)
+			for ($i = 0; $i < $num; $i++) {
+				$temp[] = array('v' => 'null'); 
+			}
+			
+			// Write entry
+			$temp[] = array('v' => (float) $row['Reading']); 
+			
+			// Loop for second null block (end of temps and start of avgs)
+			for ($i = 0; $i < $sensorcount-1; $i++) {
+				$temp[] = array('v' => 'null'); 
+			}
+			
+			// Write average
+			$temp[] = array('v' => (float) $row['avg']); 
+			
+			// Loop for end (end of avgs)
+			for ($i = 0; $i < $sensorcount-$num-1; $i++) {
+				$temp[] = array('v' => 'null'); 
+			}
+
+			$rows[] = array('c' => $temp);
+		}
+		
+		$result->free();
+	}
+	
+	mysqli_close($conn);
+	
+	$table['rows'] = $rows;
+	
+	$jsonTable = json_encode($table, true);
+	return $jsonTable;
+}
+	
+function getSensorDataTable($num_sensors) {
 
 	// Ensure connection is set up
 	require "RS_db_connect.php";
@@ -146,7 +251,6 @@ function table_row($items, $header=false) {
     $func = ($header) ? 'table_header_cell' : 'table_cell';
     return "<tr>\n\t".implode("\n\t", array_map($func, $items))."\n</tr>\n";
 }
-
 function echo_result_as_table($result, $classname) {
     if ($result && $row = mysqli_fetch_assoc($result)) {
         $columnnames = array_keys($row);

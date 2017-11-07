@@ -73,48 +73,82 @@
 			function drawChart() {
 				
 				var jsonData1 = $.ajax({
-					url: "RS_Website/php/getJSON_Sensor1.php",
+					url: "RS_Website/php/getJSON_Sensor_Humidities.php",
 					dataType: "json",
 					async: false
 					}).responseText;
 				var jsonData2 = $.ajax({
-					url: "RS_Website/php/getJSON_Sensor2.php",
+					url: "RS_Website/php/getJSON_Sensor_Temps.php",
 					dataType: "json",
 					async: false
 					}).responseText;
-				var jsonData3 = $.ajax({
-					url: "RS_Website/php/getJSON_Sensor3.php",
+				var jsonData9 = $.ajax({
+					url: "RS_Website/php/getJSON_Sensor9.php",
 					dataType: "json",
 					async: false
 					}).responseText;
-				var jsonData4 = $.ajax({
-					url: "RS_Website/php/getJSON_Sensor4.php",
+				var jsonData10 = $.ajax({
+					url: "RS_Website/php/getJSON_Sensor10.php",
 					dataType: "json",
 					async: false
 					}).responseText;
-					
+				
 				// Create our data table out of JSON data loaded from server.
-				var data1 = new google.visualization.DataTable(jsonData1);
-				var data2 = new google.visualization.DataTable(jsonData2);
-				var data3 = new google.visualization.DataTable(jsonData3);
-				var data4 = new google.visualization.DataTable(jsonData4);
+				var data1  = new google.visualization.DataTable(jsonData1);
+				var data2  = new google.visualization.DataTable(jsonData2);
+				var data9  = new google.visualization.DataTable(jsonData9);
+				var data10 = new google.visualization.DataTable(jsonData10);
 				
 				var options1 = {
-					title: 'Humidity in the Tray',
+					title: 'Humidity Readings',
 					vAxis: {title: 'Percent Humidity'},
-					legend: 'none',
-					colors: ['black', '#ff3a25'],
+					colors: ['firebrick','green','dodgerblue','darkkhaki', 'firebrick','green','dodgerblue','darkkhaki'],
 					chartArea: { backgroundColor : '#f6f6f6' },
+					legend: {
+						position: 'bottom', textStyle: {fontSize: 10}
+					},
 					series: {
 								// series 0 is the data points
 								0: {
 									pointSize: 3,
-									pointShape: { type: 'star', sides: 4, dent: 0.2 }
+									pointShape: { type: 'star', sides: 4, dent: 0.2 },
+									visibleInLegend: false
+								},
+								1: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 },
+									visibleInLegend: false
+								},
+								2: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 },
+									visibleInLegend: false
+								},
+								3: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 },
+									visibleInLegend: false
 								},
 								// series 1 is the moving average
-								1: {
+								4: {
 									lineWidth: 3,
-									pointSize: 0
+									pointSize: 0,
+									visibleInLegend: true
+								},
+								5: {
+									lineWidth: 3,
+									pointSize: 0,
+									visibleInLegend: true
+								},
+								6: {
+									lineWidth: 3,
+									pointSize: 0,
+									visibleInLegend: true
+								},
+								7: {
+									lineWidth: 3,
+									pointSize: 0,
+									visibleInLegend: true
 								}
 							},
 					vAxis: 	{
@@ -123,21 +157,56 @@
 							}
 				};
 				var options2 = {
-					title: 'Temperature in the Tray',
+					title: 'Temperature Readings',
 					vAxis: {title: 'Degrees Celsius'},
 					legend: 'none',
-					colors: ['black', '#ff3a25'],
+					colors: ['firebrick','green','dodgerblue','darkkhaki', 'firebrick','green','dodgerblue','darkkhaki'],
 					chartArea: { backgroundColor : '#f6f6f6' },
+					legend: {
+						position: 'bottom', textStyle: {fontSize: 10}
+					},
 					series: {
 								// series 0 is the data points
 								0: {
 									pointSize: 3,
-									pointShape: { type: 'star', sides: 4, dent: 0.2 }
+									pointShape: { type: 'star', sides: 4, dent: 0.2 },
+									visibleInLegend: false
+								},
+								1: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 },
+									visibleInLegend: false
+								},
+								2: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 },
+									visibleInLegend: false
+								},
+								3: {
+									pointSize: 3,
+									pointShape: { type: 'star', sides: 4, dent: 0.2 },
+									visibleInLegend: false
 								},
 								// series 1 is the moving average
-								1: {
+								4: {
 									lineWidth: 3,
-									pointSize: 0
+									pointSize: 0,
+									visibleInLegend: true
+								},
+								5: {
+									lineWidth: 3,
+									pointSize: 0,
+									visibleInLegend: true
+								},
+								6: {
+									lineWidth: 3,
+									pointSize: 0,
+									visibleInLegend: true
+								},
+								7: {
+									lineWidth: 3,
+									pointSize: 0,
+									visibleInLegend: true
 								}
 							},
 					vAxis: 	{
@@ -145,7 +214,7 @@
 								maxValue: 40
 							}
 				};
-				var options3 = {
+				var options9 = {
 					title: 'Reservoir pH',
 					vAxis: {title: 'pH'},
 					legend: 'none',
@@ -164,7 +233,7 @@
 								}
 							}
 				};
-				var options4 = {
+				var options10 = {
 					title: 'Reservoir EC',
 					vAxis: {title: 'uS per cm'},
 					legend: 'none',
@@ -185,20 +254,21 @@
 				};
 
 
-				var chart1 = new google.visualization.ScatterChart(document.getElementById('humidity_chart'));
-				var chart2 = new google.visualization.ScatterChart(document.getElementById('temp_chart'));
-				var chart3 = new google.visualization.ScatterChart(document.getElementById('ph_chart'));
-				var chart4 = new google.visualization.ScatterChart(document.getElementById('ec_chart'));
+				var chart1 = new google.visualization.ScatterChart(document.getElementById('humidity'));
+				var chart2 = new google.visualization.ScatterChart(document.getElementById('temp'));
+				var chart9 = new google.visualization.ScatterChart(document.getElementById('ph_1'));
+				var chart10 = new google.visualization.ScatterChart(document.getElementById('ec_1'));
 
 				chart1.draw(data1, options1);
 				chart2.draw(data2, options2);
-				chart3.draw(data3, options3);
-				chart4.draw(data4, options4);			
+				chart9.draw(data9, options9);
+				chart10.draw(data10, options10);
 			}
 		</script>
-		<div id="humidity_chart" 	style="height: 440px; width: 955px"></div>
-		<div id="temp_chart" 		style="height: 440px; width: 955px"></div>
-		<div id="ph_chart" 			style="height: 440px; width: 955px"></div>
-		<div id="ec_chart" 			style="height: 440px; width: 955px"></div>
+		<div id="temp" 			style="height: 440px; width: 955px"></div>
+		<div id="ph_1" 			style="height: 440px; width: 955px"></div>
+		<div id="humidity" 		style="height: 440px; width: 955px"></div>
+		<div id="ec_1" 			style="height: 440px; width: 955px"></div>
+		
 	</body>
 </html>
