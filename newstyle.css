@@ -43,7 +43,7 @@ h2 {
     padding: 8px;
 }
 
-iframe {
+.insertrow {
 	width: 400px;
 	height: 450px;
 	border:none;
