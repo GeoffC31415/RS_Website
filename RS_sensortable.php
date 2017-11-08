@@ -32,6 +32,31 @@
 			To find out more, please contact our Propositions Director on <b>+44 7849 834648</b>.
 		</div>
 		
+		<!-- Hard Data :) -->
+		<h2> Graphs of Readings </h2>
+		
+		<!-- Google Charts Graphs 
+		<div class="sensorgroup" style="background-color: #EEFFEE;">
+			<h3 class="sensorgrouptitle">Atmospheric Conditions</h3>
+			<div id="temp" 		style="height: 440px; width: 938px"></div>
+			<div id="humidity" 	style="height: 440px; width: 938px"></div>
+		</div>
+		<br>
+		<div class="sensorgroup" style="background-color: #EEEEFF;">
+			<h3 class="sensorgrouptitle">Reservoir Conditions</h3>
+			<div id="ph_1" 		style="height: 440px; width: 938px"></div>
+			<div id="ec_1" 		style="height: 440px; width: 938px"></div>
+		</div>
+		
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="RS_Website/js/charts.js"></script>
+		<script type="text/javascript"> generateCharts(); </script>
+		-->
+		
+		<!-- Grafana Dashboard iFrame -->
+		<iframe src="http://192.168.1.155:3000/dashboard/db/demo-plant?theme=light" width="955" height="1185" frameborder="0"></iframe>
+		
 		<!-- Display latest image -->
 		<h2> Current Picture - Our Experimental Bench </h2>
 		<img src="RS_Website/images/image_recent.jpg" alt="Current Snapshot">
@@ -61,30 +86,5 @@
 			</div>
 			<div class="cleared"></div>
 		</div>
-
-		<h2> Graphs of Readings </h2>
-		
-		<!-- Google Charts Graphs 
-		<div class="sensorgroup" style="background-color: #EEFFEE;">
-			<h3 class="sensorgrouptitle">Atmospheric Conditions</h3>
-			<div id="temp" 		style="height: 440px; width: 938px"></div>
-			<div id="humidity" 	style="height: 440px; width: 938px"></div>
-		</div>
-		<br>
-		<div class="sensorgroup" style="background-color: #EEEEFF;">
-			<h3 class="sensorgrouptitle">Reservoir Conditions</h3>
-			<div id="ph_1" 		style="height: 440px; width: 938px"></div>
-			<div id="ec_1" 		style="height: 440px; width: 938px"></div>
-		</div>
-		
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="RS_Website/js/charts.js"></script>
-		<script type="text/javascript"> generateCharts(); </script>
-		-->
-		
-		<!-- Grafana Dashbaord iFrame -->
-		<iframe src="http://192.168.1.155:3000/dashboard/db/exhydro-plant?theme=light" width="955" height="1300" frameborder="0"></iframe>
-		
 	</body>
 </html>
