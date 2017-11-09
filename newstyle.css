@@ -67,6 +67,13 @@ h2 {
 	border:none;
 }
 
+.fullbar {
+	float: left;
+	width: 800px;
+	height: 431px;
+	border:none;
+}
+
 .cleared {
 	clear: both;
 }

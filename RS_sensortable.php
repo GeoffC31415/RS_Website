@@ -78,12 +78,7 @@
 		
 		<!-- iFrames for the forms -->
 		<div class="wrapper">
-			<div class="leftbar">
-				<iframe class="insertrow" src="RS_Website/add_note.html"></iframe>
-			</div>
-			<div class="rightbar">
-				<iframe class="insertrow" src="RS_Website/add_Reading.html"></iframe>
-			</div>
+				<iframe class = "fullbar" src="RS_Website/add_note.html"></iframe>
 			<div class="cleared"></div>
 		</div>
 	</body>
