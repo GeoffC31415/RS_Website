@@ -55,7 +55,7 @@
 		-->
 		
 		<!-- Grafana Dashboard iFrame -->
-		<iframe src="http://hydro.organicdrive.co.uk:3000/dashboard/db/demo-plant?theme=light" width="955" height="1185" frameborder="0"></iframe>
+		<iframe src="http://hydro.organicdrive.co.uk:3000/dashboard/db/demo-plant?theme=light" width="955" height="1405" frameborder="0"></iframe>
 		
 		<!-- Display latest image -->
 		<h2> Current Picture - Our Experimental Bench </h2>
