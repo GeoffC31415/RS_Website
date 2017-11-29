@@ -64,7 +64,7 @@
 												CURRENT_TIME(), 
 												'%s', 
 												'%s', 
-												%d, 
+												%f, 
 												'%s')
 							",
 							$note,
